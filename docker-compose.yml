@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:8
+    container_name: helpdesk-db
+    restart: always
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD="yes"
+      - MYSQL_DATABASE=helpdesk
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - helpdesk-network
+    tty: true
+
+
+networks:
+  helpdesk-network:
+    driver: bridge
