@@ -6,21 +6,34 @@
 
 <th:block layout:fragment="content">
 
-    <h2>Roles</h2>
+    <div class="col-xs-12 col-md-12">
+        <a href="/roles/new" class="btn btn-success">Create</a>
+    </div>
 
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Role</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>ADMIN</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="col-xs-12 col-md-12">
+
+        <h2>Roles</h2>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Role Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="role : ${roles}">
+                <td th:text="${role.id}"></td>
+                <td th:text="${role.name}"></td>
+                <td>
+                    <form th:action="@{/roles/{id}(id = ${role.id})}" th:method="delete">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </th:block>
 </html>

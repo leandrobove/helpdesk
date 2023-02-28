@@ -6,7 +6,12 @@ spring:
   application:
     name: helpdesk
 
-# Database
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  # Database
   datasource:
     url: jdbc:mysql://localhost/helpdesk?serverTimezone=UTC&createDatabaseIfNotExist=true
     username: root
