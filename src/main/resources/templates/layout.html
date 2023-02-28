@@ -10,16 +10,24 @@
 </head>
 <body>
 
-    <th:block layout:replace="fragments/header"></th:block>
+    <header>
+        <th:block layout:replace="~{fragments/header}"></th:block>
+    </header>
 
-    <div class="container">
-        <div class="row">
-            <th:block layout:fragment="content"></th:block>
+    <main>
+        <div class="container">
+            <div class="row">
+                <th:block layout:fragment="content"></th:block>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer>
+        <th:block layout:replace="~{fragments/footer}"></th:block>
+    </footer>
+
 
     <script th:src="@{/webjars/jquery/3.6.3/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
-
 </body>
 </html>
