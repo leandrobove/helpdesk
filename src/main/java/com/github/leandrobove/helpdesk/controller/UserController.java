@@ -3,6 +3,8 @@ package com.github.leandrobove.helpdesk.controller;
 import com.github.leandrobove.helpdesk.dto.UserRequest;
 import com.github.leandrobove.helpdesk.model.User;
 import com.github.leandrobove.helpdesk.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +15,8 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
+    private static Logger log = LoggerFactory.getLogger(RoleController.class);
 
     private final UserService userService;
 
@@ -40,6 +44,17 @@ public class UserController {
         }
 
         userService.create(userRequest.toModel());
+
+        return "redirect:/users";
+    }
+
+    @DeleteMapping("/{userId}")
+    public String delete(@PathVariable Long userId, Model model) {
+        try {
+            userService.delete(userId);
+        } catch (IllegalArgumentException exception) {
+            log.error("Error deleting role: {}", exception.getMessage());
+        }
 
         return "redirect:/users";
     }
