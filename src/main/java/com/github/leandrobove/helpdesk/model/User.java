@@ -35,13 +35,12 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String email, String name, String lastName, String password, Boolean active) {
+    public User(Long id, String email, String name, String lastName, String password) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
         this.password = password;
-        this.active = active;
     }
 
     public Long getId() {
@@ -88,8 +87,12 @@ public class User {
         return active;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void activate() {
+        this.active = Boolean.TRUE;
+    }
+
+    public void deactivate() {
+        this.active = Boolean.FALSE;
     }
 
     @Override
