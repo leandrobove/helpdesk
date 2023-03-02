@@ -5,19 +5,28 @@
         layout:decorate="~{layout.html}">
 
 <th:block layout:fragment="content">
+    <div class="col-xs-12 col-md-12 text-center">
+        <div class="card">
+            <div class="card-header">
+                <h2>Create new role</h2>
+            </div>
 
-    <h2>Create new role</h2>
+            <div class="card-block">
+                <form th:action="@{/roles}" th:object="${role}" th:method="post">
 
-    <form th:action="@{/roles}" th:object="${role}" th:method="post">
-
-        <div class="form-group">
-            <input type="text" th:field="*{name}" name="name" placeholder="Enter role name" class="form-control">
-            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Role name error</span>
+                    <div class="form-group">
+                        <input type="text" th:field="*{name}" name="name" placeholder="Enter role name"
+                               class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Role name error</span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="/roles" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="/roles" class="btn btn-secondary">Back</a>
-        </div>
-    </form>
+    </div>
+
 </th:block>
 </html>

@@ -6,31 +6,39 @@
 
 <th:block layout:fragment="content">
 
-    <h2>Users</h2>
+    <div class="col-xs-12 col-md-12">
+        <a href="/users/new" class="btn btn-success">Create</a>
+    </div>
 
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Active</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${list}">
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.active}"></td>
-            <td>
-                <form th:action="@{/users/{id}(id = ${user.id})}" th:method="delete">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="col-xs-12 col-md-12">
+
+        <h2>Users</h2>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.active}"></td>
+                <td>
+                    <a th:href="@{/users/edit/{id}(id = ${user.id})}" class="btn btn-info inline">Edit</a>
+                    <form th:action="@{/users/{id}(id = ${user.id})}" th:method="delete" class="inline">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </th:block>
 </html>

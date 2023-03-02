@@ -7,25 +7,14 @@ import java.io.Serializable;
 
 public class RoleRequest implements Serializable {
 
-    private Long id;
-
     @NotBlank(message = "Role name cannot be blank")
     private String name;
 
     public RoleRequest() {
     }
 
-    public RoleRequest(Long id, String name) {
-        this.id = id;
+    public RoleRequest(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -37,6 +26,6 @@ public class RoleRequest implements Serializable {
     }
 
     public Role toModel() {
-        return new Role(this.getId(), this.getName());
+        return new Role(null, this.getName());
     }
 }
