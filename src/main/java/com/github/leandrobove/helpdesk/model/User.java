@@ -83,16 +83,22 @@ public class User {
         this.password = password;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
     public void activate() {
         this.active = Boolean.TRUE;
     }
 
     public void deactivate() {
         this.active = Boolean.FALSE;
+    }
+
+    public boolean isActive() {
+        if (this.active != null) {
+            if (this.active) {
+                return true;
+            }
+            return false;
+        }
+        throw new IllegalArgumentException("Active attribute cannot be null");
     }
 
     @Override

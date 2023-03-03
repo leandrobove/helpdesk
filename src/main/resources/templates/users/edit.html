@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org/"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout.html}">
+
+<th:block layout:fragment="content">
+    <div class="col-xs-12 col-md-12 text-center">
+        <div class="card">
+            <div class="card-header">
+                <h2>Edit user</h2>
+            </div>
+
+            <div class="card-block">
+                <form th:action="@{/users/{id}(id = ${user.id})}" th:object="${user}" th:method="put">
+
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" th:field="*{name}" id="firstName" placeholder="Enter your name"
+                               class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Field name error</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" th:field="*{lastName}" id="lastName" placeholder="Enter your last name"
+                               class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Field last name error</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">E-mail</label>
+                        <input type="email" th:field="*{email}" id="email" placeholder="Enter your email"
+                               class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Field email error</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Password</label>
+                        <input type="password" th:field="*{password}" id="password" placeholder="Enter your password"
+                               class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Field password error</span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+                            <label for="active">Active?</label>
+                            <input type="checkbox" th:field="*{active}" class="form-check-input" id="active">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="/users" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+</html>

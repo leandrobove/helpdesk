@@ -43,7 +43,7 @@ public class UserController {
             return "users/create";
         }
 
-        userService.create(userRequest.toModel());
+        userService.create(this.toModel(userRequest));
 
         return "redirect:/users";
     }
@@ -53,14 +53,48 @@ public class UserController {
         try {
             userService.delete(userId);
         } catch (IllegalArgumentException exception) {
-            log.error("Error deleting role: {}", exception.getMessage());
+            log.error("Error deleting user: {}", exception.getMessage());
         }
 
         return "redirect:/users";
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/edit/{userId}")
     public String edit(@PathVariable Long userId, Model model) {
+        try {
+            User user = userService.findById(userId);
+
+            model.addAttribute("user", user);
+        } catch (IllegalArgumentException e) {
+            log.error("Error editing user: {}", e.getMessage());
+
+            return "redirect:/users";
+        }
+
         return "users/edit";
     }
+
+    @PutMapping("/{userId}")
+    public String update(@PathVariable Long userId, @Valid @ModelAttribute("user") UserRequest userRequest,
+                         BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "users/edit";
+        }
+
+        User user = this.toModel(userRequest);
+        if (userRequest.isActive()){
+            user.activate();
+        } else {
+            user.deactivate();
+        }
+
+        userService.update(userId, user);
+
+        return "redirect:/users";
+    }
+
+    private User toModel(UserRequest userRequest) {
+        return new User(null, userRequest.getEmail(), userRequest.getName(), userRequest.getLastName(), userRequest.getPassword());
+    }
+
 }

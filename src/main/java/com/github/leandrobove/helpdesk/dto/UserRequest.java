@@ -1,7 +1,5 @@
 package com.github.leandrobove.helpdesk.dto;
 
-import com.github.leandrobove.helpdesk.model.User;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -21,14 +19,17 @@ public class UserRequest implements Serializable {
     @NotBlank(message = "password field cannot be empty")
     private String password;
 
+    private boolean active;
+
     public UserRequest() {
     }
 
-    public UserRequest(String email, String name, String lastName, String password) {
+    public UserRequest(String email, String name, String lastName, String password, boolean active) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
         this.password = password;
+        this.active = active;
     }
 
     public String getEmail() {
@@ -63,7 +64,12 @@ public class UserRequest implements Serializable {
         this.password = password;
     }
 
-    public User toModel() {
-        return new User(null, this.getEmail(), this.getName(), this.getLastName(), this.getPassword());
+    public boolean isActive() {
+        return active;
     }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 }

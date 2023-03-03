@@ -1,5 +1,6 @@
 package com.github.leandrobove.helpdesk.service.impl;
 
+import com.github.leandrobove.helpdesk.dto.UserRequest;
 import com.github.leandrobove.helpdesk.model.User;
 import com.github.leandrobove.helpdesk.repository.UserRepository;
 import com.github.leandrobove.helpdesk.service.UserService;
@@ -43,6 +44,15 @@ public class UserServiceImpl implements UserService {
         User user = this.findById(userId);
 
         user.setName(newUser.getName());
+        user.setLastName(newUser.getLastName());
+        user.setEmail(newUser.getEmail());
+        user.setPassword(newUser.getPassword());
+
+        if(newUser.isActive()) {
+            user.activate();
+        } else {
+            user.deactivate();
+        }
 
         userRepository.save(user);
     }
