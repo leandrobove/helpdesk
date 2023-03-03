@@ -82,7 +82,7 @@ public class UserController {
         }
 
         User user = this.toModel(userRequest);
-        if (userRequest.isActive()){
+        if (userRequest.isActive()) {
             user.activate();
         } else {
             user.deactivate();

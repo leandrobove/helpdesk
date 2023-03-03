@@ -91,6 +91,10 @@ public class User {
         this.active = Boolean.FALSE;
     }
 
+    public Boolean isNew() {
+        return this.getId() == null;
+    }
+
     public boolean isActive() {
         if (this.active != null) {
             if (this.active) {
