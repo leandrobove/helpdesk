@@ -5,14 +5,19 @@ import com.github.leandrobove.helpdesk.domain.model.Role;
 import com.github.leandrobove.helpdesk.domain.model.User;
 import com.github.leandrobove.helpdesk.domain.repository.RoleRepository;
 import com.github.leandrobove.helpdesk.domain.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
+
+    private static Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
@@ -37,13 +42,15 @@ public class UserService {
         if (findByEmail.isPresent())
             throw new BusinessException(String.format("This email address %s is already associated with an account", user.getEmail()));
 
-
         //set an encrypted password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         //set USER authority
         Role userRole = roleRepository.findByName("USER");
         user.addRole(userRole);
+
+        //activate
+        user.activate();
 
         return userRepository.save(user);
     }
@@ -58,6 +65,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    @Transactional
     public void update(Long userId, User newUser) {
         User user = this.findById(userId);
 
@@ -65,13 +73,14 @@ public class UserService {
         user.setLastName(newUser.getLastName());
         user.setEmail(newUser.getEmail());
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-
         if (newUser.isActive()) {
             user.activate();
         } else {
             user.deactivate();
         }
 
-        userRepository.save(user);
+        //role
+        Role role = roleRepository.findByName(newUser.getRoles().iterator().next().getName());
+        user.addRole(role);
     }
 }

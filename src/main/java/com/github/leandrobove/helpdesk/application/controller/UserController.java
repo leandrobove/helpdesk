@@ -1,7 +1,9 @@
 package com.github.leandrobove.helpdesk.application.controller;
 
 import com.github.leandrobove.helpdesk.application.dto.UserRequest;
+import com.github.leandrobove.helpdesk.domain.model.Role;
 import com.github.leandrobove.helpdesk.domain.model.User;
+import com.github.leandrobove.helpdesk.domain.service.RoleService;
 import com.github.leandrobove.helpdesk.domain.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/users")
@@ -20,8 +24,11 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final RoleService roleService;
+
+    public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping
@@ -43,7 +50,7 @@ public class UserController {
             return "users/create";
         }
 
-        userService.create(this.toModel(userRequest));
+        userService.create(userRequest.toModel());
 
         return "redirect:/users";
     }
@@ -63,8 +70,10 @@ public class UserController {
     public String edit(@PathVariable Long userId, Model model) {
         try {
             User user = userService.findById(userId);
+            List<Role> roles = roleService.findAll();
 
             model.addAttribute("user", user);
+            model.addAttribute("roles", roles);
         } catch (IllegalArgumentException e) {
             log.error("Error editing user: {}", e.getMessage());
 
@@ -81,20 +90,14 @@ public class UserController {
             return "users/edit";
         }
 
-        User user = this.toModel(userRequest);
-        if (userRequest.isActive()) {
-            user.activate();
-        } else {
-            user.deactivate();
-        }
+        User user = userRequest.toModel();
+
+        log.info("-------> User requested {}", userRequest);
+        log.info("-------> User updated {}", user);
 
         userService.update(userId, user);
 
         return "redirect:/users";
-    }
-
-    private User toModel(UserRequest userRequest) {
-        return new User(null, userRequest.getEmail(), userRequest.getName(), userRequest.getLastName(), userRequest.getPassword());
     }
 
 }

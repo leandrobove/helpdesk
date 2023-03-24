@@ -1,8 +1,13 @@
 package com.github.leandrobove.helpdesk.application.dto;
 
+import com.github.leandrobove.helpdesk.domain.model.Role;
+import com.github.leandrobove.helpdesk.domain.model.User;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 public class UserRequest implements Serializable {
 
@@ -21,15 +26,19 @@ public class UserRequest implements Serializable {
 
     private boolean active;
 
+    @NotNull(message = "roles field cannot be null")
+    private Set<Role> roles;
+
     public UserRequest() {
     }
 
-    public UserRequest(String email, String name, String lastName, String password, boolean active) {
+    public UserRequest(String email, String name, String lastName, String password, boolean active, Set<Role> roles) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
         this.password = password;
         this.active = active;
+        this.roles = roles;
     }
 
     public String getEmail() {
@@ -72,4 +81,36 @@ public class UserRequest implements Serializable {
         this.active = active;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public User toModel() {
+        User user = new User(null, this.getEmail(), this.getName(), this.getLastName(), this.getPassword());
+        if (this.isActive()) {
+            user.activate();
+        } else {
+            user.deactivate();
+        }
+
+        this.getRoles().stream().forEach(role -> user.addRole(role));
+
+        return user;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRequest{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", roles=" + roles +
+                '}';
+    }
 }
