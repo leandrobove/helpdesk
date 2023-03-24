@@ -1,3 +1,20 @@
 .navbar {
     margin-bottom: 2em;
 }
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link:hover {
+    opacity : 0.7;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.navbar-brand:hover {
+    color: white;
+    opacity : 0.7;
+}
