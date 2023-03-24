@@ -1,4 +1,4 @@
-package com.github.leandrobove.helpdesk.exception;
+package com.github.leandrobove.helpdesk.domain.exception;
 
 public class BusinessException extends RuntimeException {
 

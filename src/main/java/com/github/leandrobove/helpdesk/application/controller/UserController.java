@@ -1,8 +1,8 @@
-package com.github.leandrobove.helpdesk.controller;
+package com.github.leandrobove.helpdesk.application.controller;
 
-import com.github.leandrobove.helpdesk.dto.UserRequest;
-import com.github.leandrobove.helpdesk.model.User;
-import com.github.leandrobove.helpdesk.service.UserService;
+import com.github.leandrobove.helpdesk.application.dto.UserRequest;
+import com.github.leandrobove.helpdesk.domain.model.User;
+import com.github.leandrobove.helpdesk.domain.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.github.leandrobove.helpdesk.model;
+package com.github.leandrobove.helpdesk.domain.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -41,6 +41,15 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.password = password;
+
+        validate();
+    }
+
+    private void validate() {
+        Objects.requireNonNull(email, "User email is required");
+        Objects.requireNonNull(name, "User name is required");
+        Objects.requireNonNull(lastName, "User lastName is required");
+        Objects.requireNonNull(password, "User password is required");
     }
 
     public Long getId() {
@@ -49,6 +58,7 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+        validate();
     }
 
     public String getEmail() {
@@ -57,6 +67,7 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+        validate();
     }
 
     public String getName() {
@@ -65,6 +76,7 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+        validate();
     }
 
     public String getLastName() {
@@ -73,6 +85,7 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        validate();
     }
 
     public String getPassword() {
@@ -81,6 +94,7 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        validate();
     }
 
     public void activate() {
@@ -93,6 +107,18 @@ public class User {
 
     public Boolean isNew() {
         return this.getId() == null;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public boolean isActive() {
@@ -116,6 +142,19 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", roles=" + roles +
+                '}';
     }
 }
 

@@ -1,4 +1,4 @@
-package com.github.leandrobove.helpdesk.config;
+package com.github.leandrobove.helpdesk.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

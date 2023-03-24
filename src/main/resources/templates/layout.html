@@ -5,29 +5,32 @@
 <head>
     <meta charset="UTF-8"/>
     <title>HelpDesk - Spring App</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
 
+<div>
     <header>
         <th:block layout:replace="~{fragments/header}"></th:block>
     </header>
+</div>
 
-    <main>
-        <div class="container">
-            <div class="row">
-                <th:block layout:fragment="content"></th:block>
-            </div>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <th:block layout:fragment="content"></th:block>
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer>
-        <th:block layout:replace="~{fragments/footer}"></th:block>
-    </footer>
+<footer>
+    <th:block layout:replace="~{fragments/footer}"></th:block>
+</footer>
 
 
-    <script th:src="@{/webjars/jquery/3.6.3/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/jquery/3.6.3/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
 </body>
 </html>

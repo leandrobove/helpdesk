@@ -1,7 +1,7 @@
-package com.github.leandrobove.helpdesk.controller;
+package com.github.leandrobove.helpdesk.application.controller;
 
-import com.github.leandrobove.helpdesk.dto.RoleRequest;
-import com.github.leandrobove.helpdesk.service.RoleService;
+import com.github.leandrobove.helpdesk.application.dto.RoleRequest;
+import com.github.leandrobove.helpdesk.domain.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

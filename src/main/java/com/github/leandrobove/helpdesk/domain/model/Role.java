@@ -1,4 +1,4 @@
-package com.github.leandrobove.helpdesk.model;
+package com.github.leandrobove.helpdesk.domain.model;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,12 +14,17 @@ public class Role {
     @Column(nullable = false)
     private String name;
 
-    public Role() {
-    }
+    protected Role() {}
 
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;
+
+        validate();
+    }
+
+    private void validate() {
+        Objects.requireNonNull(name, "Role name is required");
     }
 
     public Long getId() {
@@ -28,6 +33,7 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+        validate();
     }
 
     public String getName() {
@@ -36,6 +42,7 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+        validate();
     }
 
     @Override

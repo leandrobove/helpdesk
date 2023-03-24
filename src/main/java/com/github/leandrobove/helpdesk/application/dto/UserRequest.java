@@ -1,4 +1,4 @@
-package com.github.leandrobove.helpdesk.dto;
+package com.github.leandrobove.helpdesk.application.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

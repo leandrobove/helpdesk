@@ -1,6 +1,6 @@
-package com.github.leandrobove.helpdesk.dto;
+package com.github.leandrobove.helpdesk.application.dto;
 
-import com.github.leandrobove.helpdesk.model.Role;
+import com.github.leandrobove.helpdesk.domain.model.Role;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
